@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import StockInfo from './components/StockInfo';
 import './App.css';
 
+
+fetchQuoteForStock('nflx')
+  .then((res) => {
+
+  })
+
 class App extends Component {
   state = {
     quote: {

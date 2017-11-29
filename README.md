@@ -126,3 +126,11 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     }
     ```
 1. You can see now that the above two steps, taken together, reproduce the required api URL.    
+1. Add the following code to the App.js file just above the `class App ...` line:
+    ```javascript
+    fetchQuoteForStock('nflx')
+      .then((res) => { //using .then because the request will take some time to fetch
+      //from the api server
+        
+      })  
+    ```
