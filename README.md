@@ -1,6 +1,9 @@
 # Alex Notes
 ## Todays lesson 20171130
 making a react app that takes use of backend and frontend and uses a stock price api
+
+This will link our knowledge with React front end so far with NodeJS backend from the previous week.
+
 ## Steps taken
 1. create a new react app
     ```
@@ -99,4 +102,20 @@ making a react app that takes use of backend and frontend and uses a stock price
     <StockInfo 
       {...quote}
     />
-    ```          
+    ```
+
+1. https://github.com/axios/axios we'll be using this for handling the http GET requests (making use of the API)
+
+1. found the axios api, instructions are to use `npm install axios` but we are using yarn and the command is the same `yarn install axios`
+
+1. make a folder in src called **api**
+1. make an **iex.js** file in the **api** folder
+1. with the following code:
+    ```javascript
+    import axios from 'axios'
+
+    const api = axios.create({
+      baseURL: 'https://api.iextrading.com/1.0'
+    })
+    ```
+    which is the url before the /stock part 
