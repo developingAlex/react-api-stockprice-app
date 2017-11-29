@@ -119,3 +119,11 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     })
     ```
     which is the url before the /stock part 
+1. Add the following function in iex.js file:
+    ```javascript
+    export function fetchQuoteForStock(symbol) { //the fetch instead of get because 
+      // get implies immediate return, fetch will take some time to complete..
+
+      return api.get(`/stock/${symbol}/quote`)
+    }
+    ```
