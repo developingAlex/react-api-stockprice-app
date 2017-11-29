@@ -103,11 +103,9 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       {...quote}
     />
     ```
-
+1. Now we need some way to get the data from the API we chose
 1. https://github.com/axios/axios we'll be using this for handling the http GET requests (making use of the API)
-
 1. found the axios api, instructions are to use `npm install axios` but we are using yarn and the command is the same `yarn install axios`
-
 1. make a folder in src called **api**
 1. make an **iex.js** file in the **api** folder
 1. with the following code:
@@ -119,7 +117,7 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     })
     ```
     which is the url before the /stock part 
-1. Add the following function in iex.js file:
+1. Add the following function in iex.js file to handle the rest of the url:
     ```javascript
     export function fetchQuoteForStock(symbol) { //the fetch instead of get because 
       // get implies immediate return, fetch will take some time to complete..
@@ -127,3 +125,4 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       return api.get(`/stock/${symbol}/quote`)
     }
     ```
+1. You can see now that the above two steps, taken together, reproduce the required api URL.    
