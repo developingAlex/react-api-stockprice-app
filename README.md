@@ -67,4 +67,36 @@ making a react app that takes use of backend and frontend and uses a stock price
     export default App;
 
     ```
-1. 
+1. above `render (){` in App.js added the following code to represent state:
+    ```javascript
+    state = {
+        quote: {
+          symbol: 'NFLX',
+          companyName:'Netflix inc',
+          primaryExchange:'Nasdaq Global Select',
+          latestPrice:188.15,
+          latestSource:'Close',
+          week52high:188.15,  
+          week52low:188.15
+        }
+      }
+    ```  
+1. In App/js add in the line ` const { quote } = this.state` within the render() block    
+1. replace the App.js render hard coded data to take advantage of our state:
+    ```javascript
+    <StockInfo 
+      symbol='NFLX'
+      companyName='Netflix inc'
+      primaryExchange='Nasdaq Global Select'
+      latestPrice={188.15}
+      latestSource='Close'
+      week52high={188.15}
+      week52low={188.15}
+    />
+    ```
+    becomes
+    ```javascript
+    <StockInfo 
+      {...quote}
+    />
+    ```          
