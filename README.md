@@ -358,6 +358,17 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       this.loadQuote()
     }
     ```
+1. At this point is where the follow along ends and we start working on the challenges, if you need to view my solutions to the challenges you can check out the various commits starting around commit &lsquo;[Add company logo display](https://github.com/developingAlex/react-api-stockprice-app/commit/d65f3e8ba51716a14b51e56e08e896d979e6b143)&rsquo;
+### Set challenges to work through
+1. Load and display logo for symbol using: https://iextrading.com/developer/docs/#logo
+2. Add a history of previously loaded quotes
+3. Add list of recent news using: https://iextrading.com/developer/docs/#news
+4. Add 6 month table using: https://iextrading.com/developer/docs/#chart
+5. Add 6 month chart using: https://iextrading.com/developer/docs/#chart
+
+    Nice charting library in React: http://recharts.org/#/en-US/guide/getting-started
+
+## Notes on struggles I encountered
 
 ### How to pass data through to a component.
 I made a component to provide the code to display an image, using the url for the stock's company's logo. In the App.js file I was getting the logo's url as a returned json object {url: 'https://...'}
@@ -419,7 +430,9 @@ My issue was that a ternery operator had been employed to determine if the  'loa
 
 I initially thought I could use an if statement or another ternary in that part somehow to additionally check that error was also null before displaying the message or not but found that that didn't work with the ternary syntax. 
 
-In the end a friend showed that a different approach worked, one also employed [here](https://eddyerburgh.me/toggle-visibility-with-react) where you use an expression like what is used in an if statement: **this && that**, **that** only runs if **this** resolves to true.
+In the end a different approach was employed similar to one used for [hiding elements](https://eddyerburgh.me/toggle-visibility-with-react) where you use an expression like what is used in an if statement: **this && that**, **that** only runs if **this** resolves to true.
+
+shout-out to [Glenn](https://github.com/Gurenax) for thinking of that one!
 
 The code now looks like this:
 
@@ -441,3 +454,5 @@ The code now looks like this:
 )
 ```
 The reason this was so hard was that the ternary operator was going to execute one or the other of it's two possible outcomes, but in the event that an error is returned because the entered symbol wasn't found by the API then neither of the ternary's outcomes were appropriate.
+
+Update: I had thought that it was not allowed to nest ternary operators but later found that if you're careful with your parentheses you can actually do just that with no problem.
