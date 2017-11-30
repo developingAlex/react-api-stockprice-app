@@ -32,12 +32,13 @@ class App extends Component {
     }
 
   onChangeEnteredSymbol = (event) => {
-    const input = event.target.value
+    const input = event.target
+    const value = input.value.trim().toUpperCase() //do not allow spaces and make all uppercase
     //now change state to reflect new value.
     // we don't need to do anything in this case that relies on the previous
     // state so we are just saying to set the value to the new value:
     this.setState({
-      enteredSymbol: input
+      enteredSymbol: value
     })
   }
 

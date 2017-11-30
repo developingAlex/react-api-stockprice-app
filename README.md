@@ -260,4 +260,17 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       onChange = { this.onChangeEnteredSymbol }
     />
     ```
+1. We want to ensure they do not enter spaces so amend the event handler as follows:
+    ```javascript
+    onChangeEnteredSymbol = (event) => {
+      const input = event.target
+      const value = input.value.trim().toUpperCase() //do not allow spaces and make all uppercase
+      //now change state to reflect new value.
+      // we don't need to do anything in this case that relies on the previous
+      // state so we are just saying to set the value to the new value:
+      this.setState({
+        enteredSymbol: value
+      })
+    }
+    ```
 1. 
