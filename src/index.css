@@ -20,3 +20,23 @@ button {
 .ml-1{
   margin-left: 0.25rem;
 }
+
+.bs1{
+  border: solid 1px #222;
+}
+
+.pl1{
+  padding-bottom: 1rem;
+}
+
+.bordershadow{
+  box-shadow: 4px 6px slateblue;
+}
+
+.marginbottom{
+  margin-bottom: 10px;
+}
+.articletimestamp{
+  color: lightgrey;
+  font-size: 0.75rem;
+}
