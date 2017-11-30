@@ -14,21 +14,13 @@ class App extends Component {
   state = {
     quote: null,
     error: null,
-    enteredSymbol: 'Add api symbol here eg nflx'
+    enteredSymbol: 'AAPL'
   }
 
   // the first time our component is rendered
   // this method is called:
   componentDidMount(){
-    fetchQuoteForStock('nflx')
-      .then((quote) => {//using .then because the request will take some time to fetch
-        //from the api server
-        this.setState({quote: quote})
-      })
-      .catch((error) =>{
-        this.setState({error: error})
-        console.error('Error loading quote', error)
-      })
+    this.loadQuote()
   }
 
   loadQuote = () => {

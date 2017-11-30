@@ -330,3 +330,19 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       })
     }
     ```
+1. Ensure that your default symbol in the field is set to a valid symbol, eg AAPL
+    ```javascript
+    state = {
+      quote: null,
+      error: null,
+      enteredSymbol: 'AAPL'
+    }
+    ```
+    and then we can now remove the repeated code in component mount function as it basically does the same thing as load quote, so it now looks like this:
+    ```javascript
+    // the first time our component is rendered
+    // this method is called:
+    componentDidMount(){
+      this.loadQuote()
+    }
+    ```
