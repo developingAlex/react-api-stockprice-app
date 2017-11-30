@@ -1,4 +1,4 @@
-Previous React App: [emoji-dos2](https://github.com/developingAlex/emoji-dos2)
+Previous React App: [linkedin-profile-editor](https://github.com/developingAlex/linkedin-profile-editor)
 # How to run
 This is a react app so to run it you may need to ensure you have the necessary software installed
 
