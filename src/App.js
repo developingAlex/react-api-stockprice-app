@@ -53,7 +53,9 @@ class App extends Component {
     fetchQuoteForStock(enteredSymbol)
     .then((quote) => {//using .then because the request will take some time to fetch
       //from the api server
-      this.setState({quote: quote, error: null, history: [...history,quote]})
+    const {history} = this.state
+      history.push(quote)
+      this.setState({quote: quote, error: null, history: history}) 
       console.log(history)
     })
     .catch((error) =>{

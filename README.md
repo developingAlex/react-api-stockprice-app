@@ -1,12 +1,13 @@
 # How to run
 This is a react app so to run it you may need to ensure you have the necessary software installed
 
-`yarn` is what we use in development so if you install that then navigate to this projects folder on your computer in a terminall and execute:
+`yarn` is what we use in development so if you install that then navigate to this projects folder on your computer in a terminal and execute:
 ```
 yarn start
 ```
 it will boot up a server by default at http:///localhost:3000 and open your default browser to that page.
 
+There may be some other software that is required that I've missed but hopefully if you have yarn installed at least, attempting to run `yarn start` will hopefully provide some helpful output if there is anything else required.
 
 # Alex Notes
 ## Todays lesson 20171130
