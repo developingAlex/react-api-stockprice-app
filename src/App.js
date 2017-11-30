@@ -20,7 +20,8 @@ class App extends Component {
     // this method is called:
     componentDidMount(){
       fetchQuoteForStock('nflx')
-        .then((quote) => {
+        .then((quote) => {//using .then because the request will take some time to fetch
+          //from the api server
           this.setState({quote: quote})
         })
         .catch((error) =>{

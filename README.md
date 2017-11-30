@@ -123,6 +123,9 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       // get implies immediate return, fetch will take some time to complete..
 
       return api.get(`/stock/${symbol}/quote`)
+        .then((res)=>{ //this is like going down a level because what we get returned is one level above what we wanted, ie, this gives us the json data instead of an object comprising that data
+          return res.data
+        })
     }
     ```
 1. You can see now that the above two steps, taken together, reproduce the required api URL.    
@@ -130,7 +133,7 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     ```javascript
     import { fetchQuoteForStock } from './api/iex';
     ```
-1. Add the following code to the App.js file just above the `class App ...` line:
+1. The following code added to the App.js file just above the `class App ...` line can help us to test our function if you console log it:
     ```javascript
     fetchQuoteForStock('nflx')
       .then((res) => {//using .then because the request will take some time to fetch
@@ -163,7 +166,7 @@ This will link our knowledge with React front end so far with NodeJS backend fro
         );
     ``` 
 1. you should now have a loading screen that never changes. Now we move onto making the loading actually load the data and display it.
-1. Adding a function for when the component is initially mounted:
+1. Adding a function in App.js (just below where we define the state within the Class App block) for when the component is initially mounted:
     ```javascript
     // the first time our component is rendered
     // this method is called:
@@ -177,6 +180,14 @@ This will link our knowledge with React front end so far with NodeJS backend fro
         })
     }
     ```
+1. Now you can remove the function declared previously in App.js at step 18: 
+    ```javascript
+    fetchQuoteForStock('nflx')
+    .then((res) => {//using .then because the request will take some time to fetch
+        //from the api server
+      return res.data
+    })
+    ```    
 1. Add error handling to let the user know if something went wrong
 1. edit our state to:
     ```javascript
@@ -201,7 +212,7 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     }
     ```    
 1. Amend your App.js code as follows:
-    ```
+    ```javascript
     const { quote, error } = this.state //'sugar' syntax for above.
     
     return (
