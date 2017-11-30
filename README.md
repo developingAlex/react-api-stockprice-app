@@ -135,8 +135,8 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       // get implies immediate return, fetch will take some time to complete..
 
       return api.get(`/stock/${symbol}/quote`)
-        .then((res)=>{ //this is like going down a level because what we get returned is one level above what we wanted, ie, this gives us the json data instead of an object comprising that data
-          return res.data
+        .then((res)=>{ 
+          return res.data //this is like going down a level because what we get returned is one level above what we wanted, ie, this gives us the json data instead of an object comprising that data
         })
     }
     ```

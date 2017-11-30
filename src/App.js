@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import StockInfo from './components/StockInfo';
 import StockLogo from './components/StockLogo';
 import UserHistory from './components/UserHistory';
-import { fetchQuoteForStock, fetchLogoForStock } from './api/iex';
+import { fetchQuoteForStock, fetchLogoForStock, fetchNewsForStock } from './api/iex';
 import './App.css';
+import { StockNews } from './components/StockNews';
 
 
 fetchQuoteForStock('nflx')
@@ -19,7 +20,9 @@ class App extends Component {
     logo: null,
     logoerror: null,
     enteredSymbol: 'AAPL',
-    history: []
+    history: [],
+    articles: null,
+    articlesError: null
   }
 
   // the first time our component is rendered
@@ -33,27 +36,33 @@ class App extends Component {
       error: null,
       quote: null,
       logo: null,
-      logoerror: null
+      logoerror: null,
+      articles: null,
+      articlesError: null
     }) 
 
     const { enteredSymbol, history } = this.state
 
     fetchLogoForStock(enteredSymbol)
       .then((logo) => {
-        console.log('from the fetch logo call')
-        console.log(logo)
         this.setState({logo: logo, logoerror: null})
-        console.log('the states logo',this.state.logo)
       })
       .catch((error) => {
         this.setState({logoerror: error})
-        console.log('error getting logo image:',error.message)
+      })
+
+    fetchNewsForStock(enteredSymbol, 6)
+      .then((articles) => {
+        this.setState({articles: articles})
+      })
+      .catch((error)=>{
+        this.setState({articlesError: error})
       })
 
     fetchQuoteForStock(enteredSymbol)
     .then((quote) => {//using .then because the request will take some time to fetch
       //from the api server
-    const {history} = this.state
+      const {history} = this.state
       history.push(quote)
       this.setState({quote: quote, error: null, history: history}) 
       console.log(history)
@@ -80,7 +89,7 @@ class App extends Component {
 
   render() {
     // const quote = this.state.quote
-    const { quote, error, logo, enteredSymbol, history } = this.state //'sugar' syntax for above.
+    const { quote, error, logo, enteredSymbol, history, articles, articlesError } = this.state //'sugar' syntax for above.
     console.log("this is from the state")
     console.log(logo)
     console.log({...logo})
@@ -123,6 +132,19 @@ class App extends Component {
         <UserHistory
           history={history}
         />
+        <br/><br/>
+        {
+          !!articles ? (
+
+            <StockNews
+            articles={articles}
+            />
+          ) : (
+            !!articlesError ? (
+              `There was an issue fetching the news articles for this stock: ${articlesError.message}`
+            ) : 'Loading articles...'
+          )
+        }
       </div>
     );
   }
