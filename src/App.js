@@ -13,7 +13,8 @@ fetchQuoteForStock('nflx')
 class App extends Component {
   state = {
     quote: null,
-    error: null
+    error: null,
+    enteredSymbol: 'Add api symbol here eg nflx'
   }
 
     // the first time our component is rendered
@@ -30,13 +31,18 @@ class App extends Component {
         })
     }
 
+  onChangeEnteredSymbol = (event) => {
+    const input = event.target.value
+  }
+
   render() {
     // const quote = this.state.quote
-    const { quote, error } = this.state //'sugar' syntax for above.
+    const { quote, error, enteredSymbol } = this.state //'sugar' syntax for above.
     
     return (
       <div className="App">
           <h1 className="App-title">Wolf of React</h1>
+          <input value={ enteredSymbol } placeholder='Add api symbol here eg nflx' />
         {
           !!error && 
             <p> { error.message } </p>

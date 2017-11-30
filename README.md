@@ -225,4 +225,25 @@ This will link our knowledge with React front end so far with NodeJS backend fro
         }
         {
     ```    
+1. Add an input box for user entered symbols:
+    ```
+    <div className="App">
+        <h1 className="App-title">Wolf of React</h1>
+        <input value={ enteredSymbol } placeholder='Add api symbol here eg nflx' />
+    ```
+1. Add a new variable to the state for the entered symbol:
+    ```javascript
+    state = {
+      quote: null,
+      error: null,
+      enteredSymbol: 'Add api symbol here eg nflx'
+    }
+    ```
+1. At this point your field will not be editable.
+1. Add an event handler to handle when the field changes:
+    ```javascript
+    onChangeEnteredSymbol = (event) => {
+      const input = event.target.value
+    }
+    ```
 1.     
