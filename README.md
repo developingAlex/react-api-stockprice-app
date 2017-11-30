@@ -172,6 +172,46 @@ This will link our knowledge with React front end so far with NodeJS backend fro
         .then((quote) => {
           this.setState({quote: quote})
         })
+        .catch((error) =>{
+          console.error(error)
+        })
     }
     ```
+1. Add error handling to let the user know if something went wrong
+1. edit our state to:
+    ```javascript
+    state = {
+      quote: null,
+      error: null
+    }
+    ```
+1. amend componentDidMount to:
+    ```javascript
+    // the first time our component is rendered
+    // this method is called:
+    componentDidMount(){
+      fetchQuoteForStock('nflx')
+        .then((quote) => {
+          this.setState({quote: quote})
+        })
+        .catch((error) =>{
+          this.setState({error: error})
+          console.error('Error loading quote', error)
+        })
+    }
+    ```    
+1. Amend your App.js code as follows:
+    ```
+    const { quote, error } = this.state //'sugar' syntax for above.
+    
+    return (
+      <div className="App">
+          <h1 className="App-title">Wolf of React</h1>
+        {
+          !!error && 
+            <p> { error.message } </p>
+          
+        }
+        {
+    ```    
 1.     

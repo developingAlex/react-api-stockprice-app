@@ -12,24 +12,35 @@ fetchQuoteForStock('nflx')
 
 class App extends Component {
   state = {
-    quote: null
+    quote: null,
+    error: null
   }
 
-  // the first time our component is rendered
-  // this method is called:
-  componentDidMount(){
-    fetchQuoteForStock('nflx')
-      .then((quote) => {
-        this.setState({quote: quote})
-      })
-  }
+    // the first time our component is rendered
+    // this method is called:
+    componentDidMount(){
+      fetchQuoteForStock('nflx')
+        .then((quote) => {
+          this.setState({quote: quote})
+        })
+        .catch((error) =>{
+          this.setState({error: error})
+          console.error('Error loading quote', error)
+        })
+    }
 
   render() {
     // const quote = this.state.quote
-    const { quote } = this.state //'sugar' syntax for above.
+    const { quote, error } = this.state //'sugar' syntax for above.
+    
     return (
       <div className="App">
           <h1 className="App-title">Wolf of React</h1>
+        {
+          !!error && 
+            <p> { error.message } </p>
+          
+        }
         {
           !!quote ? ( ///if the quote is there then load it
             <StockInfo 
