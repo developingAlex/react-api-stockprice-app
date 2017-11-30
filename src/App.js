@@ -27,6 +27,13 @@ class App extends Component {
   }
 
   loadQuote = () => {
+    this.setState({
+      error: null,
+      quote: null,
+      logo: null,
+      logoerror: null,
+    }) 
+
     const { enteredSymbol } = this.state
 
     fetchLogoForStock(enteredSymbol)
@@ -92,7 +99,7 @@ class App extends Component {
           
         }
         {
-          !!quote ? ( ///if the quote is there then load it
+          (!!quote) ? ( ///if the quote is there then load it
             <div>
               <StockInfo 
                 {...quote} //means my key value pairs become the props.
@@ -105,7 +112,7 @@ class App extends Component {
             </div>
 
           ) : ( //otherwise just display loading
-            <p>Loading...</p>
+              !error && <p>Loading...</p>
           )
         }
       </div>
