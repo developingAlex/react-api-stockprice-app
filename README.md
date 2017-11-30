@@ -59,8 +59,8 @@ This will link our knowledge with React front end so far with NodeJS backend fro
                 primaryExchange='Nasdaq Global Select'
                 latestPrice={188.15}
                 latestSource='Close'
-                week52high={188.15}
-                week52low={188.15}
+                week52High={188.15}
+                week52Low={188.15}
               />
           </div>
         );
@@ -79,8 +79,8 @@ This will link our knowledge with React front end so far with NodeJS backend fro
           primaryExchange:'Nasdaq Global Select',
           latestPrice:188.15,
           latestSource:'Close',
-          week52high:188.15,  
-          week52low:188.15
+          week52High:188.15,  
+          week52Low:188.15
         }
       }
     ```  
@@ -93,8 +93,8 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       primaryExchange='Nasdaq Global Select'
       latestPrice={188.15}
       latestSource='Close'
-      week52high={188.15}
-      week52low={188.15}
+      week52High={188.15}
+      week52Low={188.15}
     />
     ```
     becomes
