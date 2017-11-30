@@ -1,3 +1,13 @@
+# How to run
+This is a react app so to run it you may need to ensure you have the necessary software installed
+
+`yarn` is what we use in development so if you install that then navigate to this projects folder on your computer in a terminall and execute:
+```
+yarn start
+```
+it will boot up a server by default at http:///localhost:3000 and open your default browser to that page.
+
+
 # Alex Notes
 ## Todays lesson 20171130
 making a react app that takes use of backend and frontend and uses a stock price api
@@ -347,7 +357,7 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     }
     ```
 
-## How to pass data through to a component.
+### How to pass data through to a component.
 I made a component to provide the code to display an image, using the url for the stock's company's logo. In the App.js file I was getting the logo's url as a returned json object {url: 'https://...'}
 but when I was calling on the component to render, I was using this notation
 ```html
@@ -400,3 +410,33 @@ Alternatively, if I wanted to keep the syntax of `{...logo}` then my StockLogo c
     )
   }
 ```
+### How to determine whether a piece of html code renders or not
+I found myself trying to remove the 'loading...' message once the browser had already received a valid response. The way the program logic was initially meant that if the response was the data for a particular stock then when that loaded the loading message would be removed. But when the response is an error that the searched stock could not be found then the 'loading...' message remained.
+
+My issue was that a ternery operator had been employed to determine if the  'loading...' message would display or if the stock data would display based on the test of whether the stock data was null or not. 
+
+I initially thought I could use an if statement or another ternary in that part somehow to additionally check that error was also null before displaying the message or not but found that that didn't work with the ternary syntax. 
+
+In the end a friend showed that a different approach worked, one also employed [here](https://eddyerburgh.me/toggle-visibility-with-react) where you use an expression like what is used in an if statement: **this && that**, **that** only runs if **this** resolves to true.
+
+The code now looks like this:
+
+```javascript
+(!!quote) ? ( ///if the quote is there then load it
+  <div>
+    <StockInfo 
+      {...quote} //means my key value pairs become the props.
+    />
+    <StockLogo
+      
+      logo={logo} //passing through the actual object
+      // {...logo} //passing through the objects keyvalue pairs as the props
+    />
+  </div>
+
+) : ( //otherwise just display loading
+    !error && <p>Loading...</p>
+)
+```
+
+The reason this was so hard was that the ternary operator was going to execute one or the other of it's two possible outcomes, but in the event that an error is returned because the entered symbol wasn't found by the API then neither of the ternary's outcomes were appropriate.

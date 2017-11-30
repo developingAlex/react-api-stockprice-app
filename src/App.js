@@ -32,6 +32,7 @@ class App extends Component {
       quote: null,
       logo: null,
       logoerror: null,
+      history: []
     }) 
 
     const { enteredSymbol } = this.state
@@ -112,7 +113,7 @@ class App extends Component {
             </div>
 
           ) : ( //otherwise just display loading
-              !error && <p>Loading...</p>
+            !error && <p>Loading...</p>
           )
         }
       </div>
