@@ -273,4 +273,32 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       })
     }
     ```
-1. 
+1. Add a button below our code for our input field:
+    ```html
+    <button>
+      Load Quote
+    </button>
+    ```
+    As well as some styling in index.css which now looks like this:
+    ```css
+    html{
+      font-size: 30px;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    input{
+      font-size: 1rem;
+    }
+
+    button {
+      font-size: 1rem;
+      color: white;
+      background: #222; 
+      border: none;
+    }
+    ```
+1.     

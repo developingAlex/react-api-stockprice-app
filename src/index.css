@@ -10,3 +10,10 @@ body {
 input{
   font-size: 1rem;
 }
+
+button {
+  font-size: 1rem;
+  color: white;
+  background: #222; 
+  border: none;
+}

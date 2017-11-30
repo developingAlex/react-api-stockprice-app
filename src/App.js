@@ -17,19 +17,19 @@ class App extends Component {
     enteredSymbol: 'Add api symbol here eg nflx'
   }
 
-    // the first time our component is rendered
-    // this method is called:
-    componentDidMount(){
-      fetchQuoteForStock('nflx')
-        .then((quote) => {//using .then because the request will take some time to fetch
-          //from the api server
-          this.setState({quote: quote})
-        })
-        .catch((error) =>{
-          this.setState({error: error})
-          console.error('Error loading quote', error)
-        })
-    }
+  // the first time our component is rendered
+  // this method is called:
+  componentDidMount(){
+    fetchQuoteForStock('nflx')
+      .then((quote) => {//using .then because the request will take some time to fetch
+        //from the api server
+        this.setState({quote: quote})
+      })
+      .catch((error) =>{
+        this.setState({error: error})
+        console.error('Error loading quote', error)
+      })
+  }
 
   onChangeEnteredSymbol = (event) => {
     const input = event.target
@@ -54,6 +54,9 @@ class App extends Component {
           placeholder='Add api symbol here eg nflx'
           onChange = { this.onChangeEnteredSymbol }
           />
+          <button>
+            Load Quote
+          </button>
         {
           !!error && 
             <p> { error.message } </p>
