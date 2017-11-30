@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import StockInfo from './components/StockInfo';
-import { fetchQuoteForStock } from './api/iex';
+import StockLogo from './components/StockLogo';
+import { fetchQuoteForStock, fetchLogoForStock } from './api/iex';
 import './App.css';
 
 
@@ -14,6 +15,8 @@ class App extends Component {
   state = {
     quote: null,
     error: null,
+    logo: null,
+    logoerror: null,
     enteredSymbol: 'AAPL'
   }
 
@@ -25,6 +28,19 @@ class App extends Component {
 
   loadQuote = () => {
     const { enteredSymbol } = this.state
+
+    fetchLogoForStock(enteredSymbol)
+      .then((logo) => {
+        console.log('from the fetch logo call')
+        console.log(logo)
+        this.setState({logo: logo, logoerror: null})
+        console.log('the states logo',this.state.logo)
+      })
+      .catch((error) => {
+        this.setState({logoerror: error})
+        console.log('error getting logo image:',error.message)
+      })
+
     fetchQuoteForStock(enteredSymbol)
     .then((quote) => {//using .then because the request will take some time to fetch
       //from the api server
@@ -52,14 +68,17 @@ class App extends Component {
 
   render() {
     // const quote = this.state.quote
-    const { quote, error, enteredSymbol } = this.state //'sugar' syntax for above.
-    
+    const { quote, error, logo, enteredSymbol } = this.state //'sugar' syntax for above.
+    console.log("this is from the state")
+    console.log(logo)
+    console.log({...logo})
+    console.log("END this is from the state")
     return (
       <div className="App">
           <h1 className="App-title">Wolf of React</h1>
           <input 
           value={ enteredSymbol } 
-          placeholder='Add api symbol here eg nflx'
+          placeholder='Add api symbol here eg NFLX'
           onChange = { this.onChangeEnteredSymbol }
           />
           <button
@@ -74,9 +93,16 @@ class App extends Component {
         }
         {
           !!quote ? ( ///if the quote is there then load it
-            <StockInfo 
-              {...quote}
-            />
+            <div>
+              <StockInfo 
+                {...quote} //means my key value pairs become the props.
+              />
+              <StockLogo
+                
+                logo={logo} //passing through the actual object
+                // {...logo} //passing through the objects keyvalue pairs as the props
+              />
+            </div>
 
           ) : ( //otherwise just display loading
             <p>Loading...</p>

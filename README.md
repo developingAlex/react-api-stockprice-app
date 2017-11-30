@@ -346,3 +346,57 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       this.loadQuote()
     }
     ```
+
+## How to pass data through to a component.
+I made a component to provide the code to display an image, using the url for the stock's company's logo. In the App.js file I was getting the logo's url as a returned json object {url: 'https://...'}
+but when I was calling on the component to render, I was using this notation
+```html
+<StockLogo
+  {...logo}
+/>
+```
+And what that means is the logo objects key-value pairs are what get passed through as the components **props**, not the logo object itself.
+
+In my StockLogo component's code I had this:
+```javascript
+  function StockLogo({
+    logo
+  }) {
+    return (
+      <div>
+        <img 
+        className='stock-logo' 
+        src={logo.url} 
+        alt='no logo found'
+        aria-label='logo for the displayed company'
+        /> 
+      </div>
+    )
+  }
+```
+Which is going to be problematic because I've got **logo** there instead of **url**
+
+As my code was at that point, the quickest solution to fix it would have been to just change the invocation of the StockLogo component to this code:
+```html
+<StockLogo
+  logo={logo}
+/>
+```
+
+Alternatively, if I wanted to keep the syntax of `{...logo}` then my StockLogo component code would need to change to be like this:
+```javascript
+  function StockLogo({
+    url
+  }) {
+    return (
+      <div>
+        <img 
+        className='stock-logo' 
+        src={url} 
+        alt='no logo found'
+        aria-label='logo for the displayed company'
+        /> 
+      </div>
+    )
+  }
+```

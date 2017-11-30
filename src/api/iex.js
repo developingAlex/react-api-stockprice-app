@@ -12,3 +12,11 @@ export function fetchQuoteForStock(symbol) { //the fetch instead of get because
       return res.data
     })
 }
+
+export function fetchLogoForStock(symbol){
+  return api.get(`stock/${symbol}/logo`)
+    .then((res) => {
+      console.log(res.data.url)
+      return res.data
+    })
+}
