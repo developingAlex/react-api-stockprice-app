@@ -6,8 +6,8 @@ function StockInfo({
   primaryExchange,
   latestPrice,
   latestSource,
-  week52high,
-  week52low
+  week52High,
+  week52Low
 }) {
   return (
     <div>
@@ -15,10 +15,10 @@ function StockInfo({
       <h3>{ latestPrice }({ latestSource })</h3> 
       <dl>
         <dt> Week 52 high </dt>
-        <dd>{ week52high }</dd>
+        <dd>{ week52High }</dd>
 
         <dt> Week 52 low </dt>
-        <dd>{ week52low }</dd>
+        <dd>{ week52Low }</dd>
       </dl>
     </div>
   )
