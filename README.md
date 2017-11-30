@@ -368,7 +368,8 @@ This will link our knowledge with React front end so far with NodeJS backend fro
 
     Nice charting library in React: http://recharts.org/#/en-US/guide/getting-started
 
-## Notes on struggles I encountered
+## Notes on struggles and tricky parts I encountered
+#### or in other words: dumb stuff I did that I can look back on one day and laugh at!
 
 ### How to pass data through to a component.
 I made a component to provide the code to display an image, using the url for the stock's company's logo. In the App.js file I was getting the logo's url as a returned json object {url: 'https://...'}
@@ -455,4 +456,83 @@ The code now looks like this:
 ```
 The reason this was so hard was that the ternary operator was going to execute one or the other of it's two possible outcomes, but in the event that an error is returned because the entered symbol wasn't found by the API then neither of the ternary's outcomes were appropriate.
 
-Update: I had thought that it was not allowed to nest ternary operators but later found that if you're careful with your parentheses you can actually do just that with no problem.
+**Update:** *I had thought that it was not allowed to nest ternary operators but later found that if you're careful with your parentheses you can actually do just that with no problem.*
+### Tracking history challenge
+This was not as straight forward as it initially seemed, there were two things that were tricky with this.
+1. Adding results to the history list, and
+1. displaying the history by iterating through.
+Adding results was tricky because for a beginner it was easy to write it in such a way that it wouldn't work and it wasn't immediately obvious why.
+
+And iterating through the results to display them would have likely taken me a long time to figure out if I hadn't seen a colleague solve it already.
+
+#### Potential pitfalls in adding the results to the history list
+
+the code below works:
+```javascript
+//example 1
+const {history} = this.state
+history.push(quote)
+this.setState({quote: quote, error: null, history: history}) 
+```
+So does the below variation:
+```javascript
+//example 2
+this.setState({quote: quote, error: null, history: [...history, quote]}) 
+```
+but the below **doesn't work**:
+```javascript
+//example 3
+this.setState({quote: quote, error: null, history: history.push(quote)}) 
+```
+and neither does this:
+```javascript
+//example 4
+const {history} = this.state
+newHistory = history.push(quote)
+this.setState({quote: quote, error: null, history: newHistory}) 
+```
+If I had tried to tackle this myself the first thing I would have tried would have been example 3. That would have failed because the setState method only expects to be given objects, not code to evaluate. One day I'm sure I will know why `history: [...history, quote]` is not also considered in the same vein.
+
+The reason I included example 4 as something not to do is because it's something I might've done. I mistakenly believed the .push method on an array would have returned a new array but that's not its behaviour at all, it modifies the array and does something like returns the resulting length of the array. This gave me some headaches with errors such as '*variable* does not have a function .push'. It goes without saying that reading the documentation on the push method would have sufficed.
+
+#### rendering the history list from your component
+Below is the code that worked:
+```javascript
+return(
+  <div>
+    {
+      history.map((e,i) => <li key={i}>{e.symbol}:{e.companyName}</li>)
+    }
+  </div>
+)
+```  
+Again the reason I didn't *think* this would have worked is my flawed understanding of the map function. I thought that the map function would have modified the existing array, but inspecting the documentation reveals that it does return a new resulting array.
+
+The other thing to note with return statements such as above is that the return statement **can only return one html element**, it's ok if that element contains many other elements but the following is not valid:
+```javascript
+return(
+  <div>
+    {
+      history.map((e,i) => <li key={i}>{e.symbol}:{e.companyName}</li>)
+    }
+  </div>
+  <div>
+    this div is not valid
+  </div>
+)
+```  
+If that's what you had you would have to wrap it all in another element like so:
+```javascript
+return(
+  <div>
+    <div>
+      {
+        history.map((e,i) => <li key={i}>{e.symbol}:{e.companyName}</li>)
+      }
+    </div>
+    <div>
+      this div is not valid
+    </div>
+  </div>
+)
+```  
