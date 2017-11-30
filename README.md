@@ -21,6 +21,7 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     ```
 1. replace most content in the app.js render and leave a single h1
 1. using from this api: https://api.iextrading.com/1.0/stock/aapl/quote
+1. an example of the data received for a stock: https://api.iextrading.com/1.0/stock/nflx/quote
 1. create a components folder and create a component file StockInfo.js
     ```javascript
     import React from 'react'
@@ -438,5 +439,4 @@ The code now looks like this:
     !error && <p>Loading...</p>
 )
 ```
-
 The reason this was so hard was that the ternary operator was going to execute one or the other of it's two possible outcomes, but in the event that an error is returned because the entered symbol wasn't found by the API then neither of the ternary's outcomes were appropriate.

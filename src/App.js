@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import StockInfo from './components/StockInfo';
 import StockLogo from './components/StockLogo';
+import UserHistory from './components/UserHistory';
 import { fetchQuoteForStock, fetchLogoForStock } from './api/iex';
 import './App.css';
 
@@ -17,7 +18,8 @@ class App extends Component {
     error: null,
     logo: null,
     logoerror: null,
-    enteredSymbol: 'AAPL'
+    enteredSymbol: 'AAPL',
+    history: []
   }
 
   // the first time our component is rendered
@@ -31,11 +33,10 @@ class App extends Component {
       error: null,
       quote: null,
       logo: null,
-      logoerror: null,
-      history: []
+      logoerror: null
     }) 
 
-    const { enteredSymbol } = this.state
+    const { enteredSymbol, history } = this.state
 
     fetchLogoForStock(enteredSymbol)
       .then((logo) => {
@@ -52,7 +53,8 @@ class App extends Component {
     fetchQuoteForStock(enteredSymbol)
     .then((quote) => {//using .then because the request will take some time to fetch
       //from the api server
-      this.setState({quote: quote, error: null})
+      this.setState({quote: quote, error: null, history: [...history,quote]})
+      console.log(history)
     })
     .catch((error) =>{
       let helpfulError = error
@@ -76,7 +78,7 @@ class App extends Component {
 
   render() {
     // const quote = this.state.quote
-    const { quote, error, logo, enteredSymbol } = this.state //'sugar' syntax for above.
+    const { quote, error, logo, enteredSymbol, history } = this.state //'sugar' syntax for above.
     console.log("this is from the state")
     console.log(logo)
     console.log({...logo})
@@ -112,10 +114,13 @@ class App extends Component {
               />
             </div>
 
-          ) : ( //otherwise just display loading
+          ) : ( //otherwise just display loading but not if the response has returned and it was an error.
             !error && <p>Loading...</p>
           )
         }
+        <UserHistory
+          history={history}
+        />
       </div>
     );
   }
