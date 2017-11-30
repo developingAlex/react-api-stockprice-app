@@ -31,8 +31,12 @@ class App extends Component {
       this.setState({quote: quote})
     })
     .catch((error) =>{
-      this.setState({error: error})
-      console.error(`The stock symbol '${enteredSymbol}' does not exist`, error)
+      let helpfulError = error
+      if (helpfulError.response.data ==='Unknown symbol')
+      {
+        helpfulError.message=`The stock symbol '${enteredSymbol}' does not exist`
+      }
+      this.setState({error: helpfulError})      
     })
   }
   onChangeEnteredSymbol = (event) => {
