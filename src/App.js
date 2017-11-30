@@ -28,7 +28,7 @@ class App extends Component {
     fetchQuoteForStock(enteredSymbol)
     .then((quote) => {//using .then because the request will take some time to fetch
       //from the api server
-      this.setState({quote: quote})
+      this.setState({quote: quote, error: null})
     })
     .catch((error) =>{
       let helpfulError = error
