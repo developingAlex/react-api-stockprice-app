@@ -31,6 +31,18 @@ class App extends Component {
       })
   }
 
+  loadQuote = () => {
+    const { enteredSymbol } = this.state
+    fetchQuoteForStock(enteredSymbol)
+    .then((quote) => {//using .then because the request will take some time to fetch
+      //from the api server
+      this.setState({quote: quote})
+    })
+    .catch((error) =>{
+      this.setState({error: error})
+      console.error(`The stock symbol '${enteredSymbol}' does not exist`, error)
+    })
+  }
   onChangeEnteredSymbol = (event) => {
     const input = event.target
     const value = input.value.trim().toUpperCase() //do not allow spaces and make all uppercase
@@ -54,7 +66,9 @@ class App extends Component {
           placeholder='Add api symbol here eg nflx'
           onChange = { this.onChangeEnteredSymbol }
           />
-          <button>
+          <button
+          className = 'ml-1'
+          onClick= {this.loadQuote}>
             Load Quote
           </button>
         {

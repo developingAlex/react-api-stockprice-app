@@ -17,3 +17,6 @@ button {
   background: #222; 
   border: none;
 }
+.ml-1{
+  margin-left: 0.25rem;
+}

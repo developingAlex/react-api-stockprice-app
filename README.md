@@ -301,4 +301,32 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       border: none;
     }
     ```
-1.     
+1. now create the event handling ability for the button:
+    ```html
+    <button
+      className = 'ml-1'
+      onClick= {this.loadQuote}>
+      Load Quote
+    </button>
+    ```
+    added to index.css:
+    ```css
+    .ml-1{
+      margin-left: 0.25rem;
+    }
+    ```
+1. then create the event handler itself:
+    ```javascript
+    loadQuote = () => {
+      const { enteredSymbol } = this.state
+      fetchQuoteForStock(enteredSymbol)
+      .then((quote) => {//using .then because the request will take some time to fetch
+        //from the api server
+        this.setState({quote: quote})
+      })
+      .catch((error) =>{
+        this.setState({error: error})
+        console.error(`The stock symbol '${enteredSymbol}' does not exist`, error)
+      })
+    }
+    ```
