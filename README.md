@@ -244,6 +244,20 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     ```javascript
     onChangeEnteredSymbol = (event) => {
       const input = event.target.value
+      //now change state to reflect new value.
+      // we don't need to do anything in this case that relies on the previous
+      // state so we are just saying to set the value to the new value:
+      this.setState({
+        enteredSymbol: input
+      })
     }
     ```
-1.     
+1. Bring it together with the input box by amending the input box html code as follows:
+    ```javascript
+    <input 
+      value={ enteredSymbol } 
+      placeholder='Add api symbol here eg nflx'
+      onChange = { this.onChangeEnteredSymbol }
+    />
+    ```
+1. 

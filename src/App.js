@@ -33,6 +33,12 @@ class App extends Component {
 
   onChangeEnteredSymbol = (event) => {
     const input = event.target.value
+    //now change state to reflect new value.
+    // we don't need to do anything in this case that relies on the previous
+    // state so we are just saying to set the value to the new value:
+    this.setState({
+      enteredSymbol: input
+    })
   }
 
   render() {
@@ -42,7 +48,11 @@ class App extends Component {
     return (
       <div className="App">
           <h1 className="App-title">Wolf of React</h1>
-          <input value={ enteredSymbol } placeholder='Add api symbol here eg nflx' />
+          <input 
+          value={ enteredSymbol } 
+          placeholder='Add api symbol here eg nflx'
+          onChange = { this.onChangeEnteredSymbol }
+          />
         {
           !!error && 
             <p> { error.message } </p>
