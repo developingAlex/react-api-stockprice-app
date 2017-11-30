@@ -15,6 +15,15 @@ class App extends Component {
     quote: null
   }
 
+  // the first time our component is rendered
+  // this method is called:
+  componentDidMount(){
+    fetchQuoteForStock('nflx')
+      .then((quote) => {
+        this.setState({quote: quote})
+      })
+  }
+
   render() {
     // const quote = this.state.quote
     const { quote } = this.state //'sugar' syntax for above.

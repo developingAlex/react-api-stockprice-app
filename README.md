@@ -162,4 +162,16 @@ This will link our knowledge with React front end so far with NodeJS backend fro
           </div>
         );
     ``` 
-1. 
+1. you should now have a loading screen that never changes. Now we move onto making the loading actually load the data and display it.
+1. Adding a function for when the component is initially mounted:
+    ```javascript
+    // the first time our component is rendered
+    // this method is called:
+    componentDidMount(){
+      fetchQuoteForStock('nflx')
+        .then((quote) => {
+          this.setState({quote: quote})
+        })
+    }
+    ```
+1.     
