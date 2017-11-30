@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
 import StockInfo from './components/StockInfo';
+import { fetchQuoteForStock } from './api/iex';
 import './App.css';
 
 
 fetchQuoteForStock('nflx')
-  .then((res) => {
-
-  })
+.then((res) => {//using .then because the request will take some time to fetch
+    //from the api server
+  return res.data
+})
 
 class App extends Component {
   state = {
-    quote: {
-      symbol: 'NFLX',
-      companyName:'Netflix inc',
-      primaryExchange:'Nasdaq Global Select',
-      latestPrice:188.15,
-      latestSource:'Close',
-      week52high:188.15,  
-      week52low:188.15
-    }
+    quote: null
   }
 
   render() {
@@ -26,11 +20,17 @@ class App extends Component {
     const { quote } = this.state //'sugar' syntax for above.
     return (
       <div className="App">
-        
           <h1 className="App-title">Wolf of React</h1>
-          <StockInfo 
-            {...quote}
-          />
+        {
+          !!quote ? ( ///if the quote is there then load it
+            <StockInfo 
+              {...quote}
+            />
+
+          ) : ( //otherwise just display loading
+            <p>Loading...</p>
+          )
+        }
       </div>
     );
   }

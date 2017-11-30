@@ -105,7 +105,7 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     ```
 1. Now we need some way to get the data from the API we chose
 1. https://github.com/axios/axios we'll be using this for handling the http GET requests (making use of the API)
-1. found the axios api, instructions are to use `npm install axios` but we are using yarn and the command is the same `yarn install axios`
+1. found the axios api, instructions are to use `npm install axios` but we are using yarn and the command is the same `yarn install axios` (when we run that the terminal reminds us to use `yarn add` instead of `yarn install`)
 1. make a folder in src called **api**
 1. make an **iex.js** file in the **api** folder
 1. with the following code:
@@ -126,11 +126,40 @@ This will link our knowledge with React front end so far with NodeJS backend fro
     }
     ```
 1. You can see now that the above two steps, taken together, reproduce the required api URL.    
+1. you can bring that function into your App.js file with the following import line:
+    ```javascript
+    import { fetchQuoteForStock } from './api/iex';
+    ```
 1. Add the following code to the App.js file just above the `class App ...` line:
     ```javascript
     fetchQuoteForStock('nflx')
-      .then((res) => { //using .then because the request will take some time to fetch
-      //from the api server
-        
-      })  
+      .then((res) => {//using .then because the request will take some time to fetch
+          //from the api server
+        return res.data
+      })
     ```
+1. remove our hardcoded values in the state part of App.js:
+    ```javascript
+    state = {
+      quote: null
+    }
+    ```        
+1. change the App.js return statement to handle when quote is null
+    ```javascript
+    return (
+          <div className="App">
+              <h1 className="App-title">Wolf of React</h1>
+            {
+              !!quote ? ( ///if the quote is there then load it
+                <StockInfo 
+                  {...quote}
+                />
+
+              ) : ( //otherwise just display loading
+                <p>Loading...</p>
+              )
+            }
+          </div>
+        );
+    ``` 
+1. 
