@@ -40,3 +40,8 @@ button {
   color: lightgrey;
   font-size: 0.75rem;
 }
+
+table, th, td{
+  border: 1px solid;
+  padding: 0.3rem;
+}
