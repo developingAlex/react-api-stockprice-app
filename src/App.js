@@ -82,7 +82,10 @@ class App extends Component {
     //on keyup here indicates user pushed a keyboard key down, then released it and the key went back UP
     //it is triggered by ANY keyboard key, not just the up arrow...(though that is one of the two keys that in this case matters!)
     const {historyPosition, history} = this.state
-    if (keyboardEvent.key === 'ArrowUp'){
+    if (keyboardEvent.key === 'Enter'){
+      this.loadQuote()
+    }
+    else if (keyboardEvent.key === 'ArrowUp'){
       //attempt to decrement the historyPosition variable by one unless it is currently zero.
       let currentPositionInHistory = 0
       if (historyPosition > 0){
