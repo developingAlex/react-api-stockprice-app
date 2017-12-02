@@ -539,7 +539,121 @@ return(
   </div>
 )
 ```  
+#### Getting the 6 month data table to render
+Initially I tried the following code:
+```javascript
+return(
+  <div className='stockTable'>
+    <tbody>
+      <tr>
+        <th>Date</th>
+        <th>Open</th>
+        <th>Close</th>
+      </tr>
+    {
+      stockData.forEach(dayOfData => {
+        console.log(dayOfData.date)
+        <tr>
+          <td>{dayOfData.date}</td>
+          <td>{dayOfData.open}</td>
+          <td>{dayOfData.close}</td>
+        </tr>
+      })
+    }
+    </tbody>
+  </div>
+)
+```
+But that failed to render anything more than the headers, and resulted in numerous error messages in the browsers console. The first was `<tbody> cannot appear as a child of <div>` which is funny because I initially used `<table>` but it said `<tr> cannot appear as a child of <table>. Add a <tbody> to your code to match the DOM tree`
 
+I realised after looking at a [github post](https://github.com/facebook/react/issues/5652) that I'm meant to have both `<table>` and `<tbody>`, with the latter inside the former.
+
+Now I don't get any error messages related to the code in the StockTable component but the body of the table still isn't rendering in the browser...
+
+After checking a few other stack overflow posts on the matter, it seems like the way to do this is to either use **map**, or use the foreach loop **outside** of the return statement to construct an array which you then use inside the return statement. The reason that map works is that map *returns* something whereas the foreach doesnt and also something to do with the return statement only being able to handle expressions, not functions and foreach is a type of function.
+
+The below code works now where I've moved the loop out of the return statement and used it to build up an array, which is then used in the return statement:
+```javascript
+export function StockTable ({
+  stockData //an array of objects consisting of data as bottom example comment shows
+}){
+  const arrayOfDays = []
+  stockData.forEach(dayOfData => {
+    arrayOfDays.push(
+    <tr>
+      <td>{dayOfData.date}</td>
+      <td>{dayOfData.open}</td>
+      <td>{dayOfData.close}</td>  
+    </tr>)
+  })
+  return(
+    <div className='stockTable'>
+      <table>
+        <tbody>
+          <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>Close</th>
+          </tr>
+          {
+            arrayOfDays
+          }
+        </tbody>
+      </table>
+    </div>
+  )
+}
+```
+But that really doesn't look as clean as using the map way so going with this:
+```javascript
+export function StockTable ({
+  stockData //an array of objects consisting of data as bottom example comment shows
+}){
+  return(
+    <div className='stockTable'>
+      <table>
+        <tbody>
+          <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>Close</th>
+          </tr>
+          {
+            stockData.map((dayOfData) => (
+              <tr>
+                <td>{dayOfData.date}</td>
+                <td>{dayOfData.open}</td>
+                <td>{dayOfData.close}</td>  
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  )
+}
+```
+**Take note** that in the above, the following block of code when moved out of the foreach loop and into the map function has its enclosing brackets changed from curly braces to parentheses:
+**this is correct:**
+```html
+stockData.map((dayOfData) => (
+  <tr>
+    <td>{dayOfData.date}</td>
+    <td>{dayOfData.open}</td>
+    <td>{dayOfData.close}</td>  
+  </tr>
+))
+```
+**this is NOT correct:**
+```html
+stockData.map((dayOfData) => {
+  <tr>
+    <td>{dayOfData.date}</td>
+    <td>{dayOfData.open}</td>
+    <td>{dayOfData.close}</td>  
+  </tr>
+})
+```
 ### Notes on making user history behaviour similar to bash terminal input history
 I saw [Glenn Marks'](https://github.com/isnology) solution to this and really liked it so decided to imitate.
 

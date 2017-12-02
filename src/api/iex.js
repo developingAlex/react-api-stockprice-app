@@ -3,7 +3,7 @@ import axios from 'axios'
 const api = axios.create({
   baseURL: 'https://api.iextrading.com/1.0'
 })
-
+  
 export function fetchQuoteForStock(symbol) { //the fetch instead of get because 
   // get implies immediate return, fetch will take some time to complete..
 
@@ -28,3 +28,10 @@ export function fetchNewsForStock(symbol, numberOfArticles){
       return res.data
     })
 }
+
+export function fetch6mDataForStock(symbol) {
+  return api.get(`/stock/${symbol}/chart/6m`)
+    .then((res) => {
+      return res.data
+    })
+  }

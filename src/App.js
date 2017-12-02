@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import StockInfo from './components/StockInfo';
 import StockLogo from './components/StockLogo';
 import UserHistory from './components/UserHistory';
-import { fetchQuoteForStock, fetchLogoForStock, fetchNewsForStock } from './api/iex';
-import './App.css';
 import { StockNews } from './components/StockNews';
+
+import { 
+  fetchQuoteForStock, 
+  fetchLogoForStock, 
+  fetchNewsForStock, 
+  fetch6mDataForStock 
+} from './api/iex';
+
+import './App.css';
+import { StockTable } from './components/StockTable';
 
 
 fetchQuoteForStock('nflx')
@@ -23,7 +31,9 @@ class App extends Component {
     history: [], //the users search history
     articles: null, // news articles returned by the api
     articlesError: null, // error, if any, returned by api for articles request
-    historyPosition: 0 // set current position in history backtracking to coincide with history arrays one and only element.
+    historyPosition: 0, // set current position in history backtracking to coincide with history arrays one and only element.
+    sixMonthData: null,
+    sixMonthDataError: null
   }
 
   // the first time our component is rendered
@@ -40,10 +50,20 @@ class App extends Component {
       logo: null,
       logoerror: null,
       articles: null,
-      articlesError: null
+      articlesError: null,
+      sixMonthData: null,
+      sixMonthDataError: null
     }) 
 
     const { enteredSymbol, history } = this.state
+
+    fetch6mDataForStock(enteredSymbol)
+      .then((data) => {
+        this.setState({sixMonthData: data})
+      })
+      .catch((error) => {
+        this.setState({sixMonthDataError: error})
+      })
 
     fetchLogoForStock(enteredSymbol)
       .then((logo) => {
@@ -122,7 +142,7 @@ class App extends Component {
 
   render() {
     // const quote = this.state.quote
-    const { quote, error, logo, enteredSymbol, history, articles, articlesError } = this.state //'sugar' syntax for above.
+    const { quote, error, logo, enteredSymbol, history, articles, articlesError, sixMonthData, sixMonthDataError } = this.state //'sugar' syntax for above.
     return (
       <div className="App">
           <h1 className="App-title">Wolf of React</h1>
@@ -173,6 +193,16 @@ class App extends Component {
             !!articlesError ? (
               `There was an issue fetching the news articles for this stock: ${articlesError.message}`
             ) : 'Loading articles...'
+          )
+        }{
+          !!sixMonthData ? (
+            <StockTable
+            stockData = {sixMonthData}
+            />
+          ) : (
+            !!sixMonthDataError ? (
+              `There was an issue fetching the price data for this stock: ${sixMonthDataError.message}`
+            ) : 'Loading 6 month data table...'
           )
         }
       </div>
