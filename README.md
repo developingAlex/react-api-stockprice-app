@@ -534,7 +534,7 @@ return(
       }
     </div>
     <div>
-      this div is not valid
+      this div is now valid
     </div>
   </div>
 )
