@@ -361,7 +361,7 @@ This will link our knowledge with React front end so far with NodeJS backend fro
       this.loadQuote()
     }
     ```
-1. At this point is where the follow along ends and we start working on the challenges, if you need to view my solutions to the challenges you can check out the various commits starting around commit &lsquo;[Add company logo display](https://github.com/developingAlex/react-api-stockprice-app/commit/d65f3e8ba51716a14b51e56e08e896d979e6b143)&rsquo;
+1. At this point is where the follow along ends and we start working on the challenges, if you need to view my solutions to the challenges you can check out the various [commits](https://github.com/developingAlex/react-api-stockprice-app/commits/master) starting around commit &lsquo;[Add company logo display](https://github.com/developingAlex/react-api-stockprice-app/commit/d65f3e8ba51716a14b51e56e08e896d979e6b143)&rsquo;
 ### Set challenges to work through
 1. Load and display logo for symbol using: https://iextrading.com/developer/docs/#logo
 2. Add a history of previously loaded quotes
@@ -539,3 +539,25 @@ return(
   </div>
 )
 ```  
+
+### Notes on making user history behaviour similar to bash terminal input history
+I saw [Glenn Marks'](https://github.com/isnology) solution to this and really liked it so decided to imitate.
+
+To get the ability to scroll through the past history means I will need to keep track of the position in the history that the user is currently at.
+
+Initially AAPL will be the first stock searched by default.
+
+If the user then searches for NFLX(Netflix) TSLA (Tesla) IBM(IBM) then after they hit search for IBM 'IBM' will still be what appears in the input box. We want to make it so that at that state, if the user selects the input box and presses the up arrow the contents of the input box change back to 'TSLA', if they hit up again: 'NFLX, and once more back to 'AAPL'. 
+
+If at that point they keep hitting the up arrow then no change should happen as that's the start of their history.
+
+At that point they could then start hitting the down arrow to cycle back through their history in the opposite way ending up on IBM once more.
+
+#### pseudocode brainstorming
+* maintain a history position counter (integer) which is incremented on each search and is initialised at zero.
+* Upon page initialisation the position variable = 0, the history array length = 1 (from initial search for AAPL)
+* the value of the position variable (0) coincides with the index of the history array's last element.
+* upon up arrow press: attempt to decrement by one the history position variable. if doing so would result in its value being -1 then leave it at 0.
+    * update contents of the input field to match the history array's element at the index that coincides with the position variable.
+* upon running a new search, set the position variables value to coincide with the history array's final element's index.
+* only increment the position variable at the same time as we are adding a new element to the history array.

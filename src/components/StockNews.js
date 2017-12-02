@@ -3,7 +3,6 @@ import React from 'react'
 export function StockNews({
   articles
 }) {
-  console.log(articles)
   return(
     <div>
       {
