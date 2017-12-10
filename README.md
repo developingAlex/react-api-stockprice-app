@@ -8,7 +8,7 @@ This is a react app so to run it you may need to ensure you have the necessary s
 ```
 yarn start
 ```
-it will boot up a server by default at http:///localhost:3000 and open your default browser to that page.
+it will boot up a server by default at http://localhost:3000 and open your default browser to that page.
 
 There may be some other software that is required that I've missed but hopefully if you have yarn installed at least, attempting to run `yarn start` will hopefully provide some helpful output if there is anything else required.
 
@@ -99,8 +99,8 @@ This will link our knowledge with React front end so far with NodeJS backend fro
         }
       }
     ```  
-1. In App/js add in the line ` const { quote } = this.state` within the render() block    
-1. replace the App.js render hard coded data to take advantage of our state:
+1. In App.js add in the line ` const { quote } = this.state` within the render() block    
+1. Replace the App.js render hard coded data to take advantage of our state:
     ```javascript
     <StockInfo 
       symbol='NFLX'
